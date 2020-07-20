@@ -9,7 +9,9 @@ class Player {
   bool is_black;
 
  public:
+  Player();
+  Player(bool __is_cpu, bool __is_black);
   void  set_color(bool __is_black);
-  bool  is_cpu();
+  void  set_cpu(bool __is_cpu);
   Coord get_step(Board &__board);
 };

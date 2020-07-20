@@ -6,3 +6,7 @@ typedef std::pair<int, int> Coord;
 #define NO_ACTION Coord(-1, -1)
 /* Operator + */
 Coord operator+(Coord lhs, Coord rhs);
+/* Direction <r, c> */
+Coord direction[] = {Coord(-1, -1), Coord(-1, 0), Coord(-1, 1),
+                       Coord(0, -1),  Coord(0, 1),  Coord(1, -1),
+                       Coord(1, 0),   Coord(1, 1)};

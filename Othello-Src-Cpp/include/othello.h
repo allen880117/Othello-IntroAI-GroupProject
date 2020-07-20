@@ -1,15 +1,15 @@
 #pragma once
 #include <board.h>
+#include <coord.h>
 #include <player.h>
+#include <game_util.h>
 
 /* Class Othello */
 class Othello {
  private:
   Board  board;
-  Player p1, p2;
-  
-  bool exist_valid_white;
-  bool exist_valid_black;
+  Player player_black;
+  Player player_white;
 
  private:
   // Flow Control
@@ -19,11 +19,6 @@ class Othello {
 
   // Special Event
   void do_welcome_event();
-
-  // Game Utility
-  bool is_end();
-  bool is_exist_valid_step(bool __is_black);
-  void do_set_and_flip(Coord __step);
 
  public:
   void start_game();
