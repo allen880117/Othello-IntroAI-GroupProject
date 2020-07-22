@@ -10,8 +10,8 @@ class Player {
 
  public:
   Player();
-  Player(bool __is_cpu, bool __is_black);
-  void  set_color(bool __is_black);
-  void  set_cpu(bool __is_cpu);
-  Coord get_step(Board &__board);
+  Player(bool _is_cpu, bool _is_black);
+  void  set_color(bool _is_black);
+  void  set_cpu(bool _is_cpu);
+  Coord get_step(Board &_board);
 };

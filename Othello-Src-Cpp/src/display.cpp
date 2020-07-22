@@ -11,7 +11,7 @@ void Display::clear() {
 /*
     Print the board
 */
-void Display::print(Board &__board) {
+void Display::print(Board &_board) {
   printf("  0 1 2 3 4 5 6 7\n");
 
   for (int i = 0; i < BOARD_H; i++) {
@@ -22,7 +22,7 @@ void Display::print(Board &__board) {
     printf(NORMAL "%d", i);
 
     for (int j = 0; j < BOARD_W; j++) {
-      Status status = __board.get(i, j);
+      Status status = _board.get(i, j);
       switch (status) {
         case Status::ILLEGAL:
           printf(B_GREEN_F_BLACK "|X");

@@ -31,7 +31,7 @@ void Othello::do_main_process() {
       }
 
       /* Set the Piece and Flip  */
-      GameUtil::do_set_and_flip(this->board, step);
+      GameUtil::do_set_and_flip(this->board, is_black, step);
     }
 
     /* Reverse Color */

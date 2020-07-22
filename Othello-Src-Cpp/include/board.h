@@ -14,9 +14,9 @@ class Board {
 
  public:
   Board();
-  Status get(int __x, int __y);
-  bool   set(int __x, int __y, Status __status);
+  Status get(int _x, int _y);
+  bool   set(int _x, int _y, Status _status);
 
   void clear();
-  bool check_boundary(int __x, int __y);
+  bool check_boundary(int _x, int _y);
 };

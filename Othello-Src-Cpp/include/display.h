@@ -10,5 +10,5 @@ namespace Display {
 void clear();
 
 template <class T>
-void print(T &__t);
+void print(T &_t);
 }  // namespace Display
