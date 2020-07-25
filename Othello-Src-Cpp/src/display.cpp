@@ -1,12 +1,11 @@
-#include <display.h>
 #include <board.h>
+#include <display.h>
+#include <cstdio>
 
 /*
     Clear the Screen
 */
-void Display::clear() {
-  printf(CLEAR);
-}
+void Display::clear() { printf(CLEAR); }
 
 /*
     Print the board

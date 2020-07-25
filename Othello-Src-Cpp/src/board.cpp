@@ -6,6 +6,11 @@
 Board::Board() { this->clear(); }
 
 /*
+    Operator ==
+*/
+bool Board::operator==(const Board &rhs) { return (this->board == rhs.board); }
+
+/*
     Get Status of the Cell of the Board
 */
 Status Board::get(int _x, int _y) {

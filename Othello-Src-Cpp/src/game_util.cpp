@@ -31,8 +31,7 @@ bool GameUtil::is_valid_step(Board &_board, bool _is_black, Coord _step) {
   if (_step == NO_ACTION) return false;
 
   /* You can't set piece on not UNOCCUPIED */
-  if (_board.get(_step.first, _step.second) != Status::UNOCCUPIED)
-    return false;
+  if (_board.get(_step.first, _step.second) != Status::UNOCCUPIED) return false;
 
   /* Inside Safe Area (Central 6x6), No need to check */
   if ((_step.first >= 1 && _step.first <= BOARD_H - 2) &&
@@ -87,12 +86,11 @@ bool GameUtil::do_set_and_flip(Board &_board, bool _is_black, Coord _step) {
   if (_step == NO_ACTION) return false;
 
   /* You can't set piece on not UNOCCUPIED */
-  if (_board.get(_step.first, _step.second) != Status::UNOCCUPIED)
-    return false;
+  if (_board.get(_step.first, _step.second) != Status::UNOCCUPIED) return false;
 
   /* Set the piece */
   _board.set(_step.first, _step.second,
-              (_is_black) ? Status::BLACK : Status::WHITE);
+             (_is_black) ? Status::BLACK : Status::WHITE);
 
   /*
     [B]    [W]     [...][B]
@@ -160,6 +158,21 @@ bool GameUtil::do_set_and_flip(Board &_board, bool _is_black, Coord _step) {
 }
 
 /*
+  Return all the possible step for this color (at this state)
+*/
+std::vector<Coord> GameUtil::get_valid_steps(Board &_board, bool _is_black) {
+  std::vector<Coord> ret;
+  ret.clear();
+  for (int r = 0; r < BOARD_H; r++) {
+    for (int c = 0; c < BOARD_W; c++) {
+      if (GameUtil::is_valid_step(_board, _is_black, Coord(r, c)))
+        ret.push_back(Coord(r, c));
+    }
+  }
+  return ret;
+}
+
+/*
   Return the difference ([#B] - [#W])
 */
 int GameUtil::get_result(Board &_board) {
@@ -175,11 +188,4 @@ int GameUtil::get_result(Board &_board) {
   }
 
   return black_counter - white_counter;
-}
-
-/*
-  Return all the possible step for this color (at this state)
-*/
-std::vector<Coord> GameUtil::get_valid_steps(Board &_board, bool _is_black){
-
 }
