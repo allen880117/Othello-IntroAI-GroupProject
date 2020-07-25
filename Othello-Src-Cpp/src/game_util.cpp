@@ -80,6 +80,7 @@ bool GameUtil::is_valid_step(Board &_board, bool _is_black, Coord _step) {
 
 /*
   Set the Piece on Board, and Flip
+  This will modify the data of Board
 */
 bool GameUtil::do_set_and_flip(Board &_board, bool _is_black, Coord _step) {
   /* Abort */

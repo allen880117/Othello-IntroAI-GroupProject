@@ -15,6 +15,7 @@ class Board {
  public:
   Board();
   bool operator==(const Board &rhs);
+  void operator=(const Board &rhs);
 
   Status get(int _x, int _y);
   bool   set(int _x, int _y, Status _status);

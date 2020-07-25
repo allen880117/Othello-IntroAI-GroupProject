@@ -1,7 +1,9 @@
 #include <game_util.h>
 #include <uct.h>
+
 #include <cstdlib>
 #include <ctime>
+#include <limits>
 
 /*
   Constructor of UCT::Node
@@ -117,4 +119,57 @@ UCT::Node *UCT::Tree::tree_policy(UCT::Node *_v) {
     }
   }
   return _v;
+}
+
+/*
+  Expand Node (that is not full-expanded)
+*/
+UCT::Node *UCT::Tree::expand(UCT::Node *_v) {
+  /* Find Unchoosed Steps */
+  std::vector<Coord> unchoosed_steps;
+  unchoosed_steps.clear();
+
+  /* Do Matching, Find unused next-steps */
+  for (Coord step : _v->valid_next_steps) {
+    /* Is this step has been expanded (It has been a child) */
+    bool is_in_child_list = false;
+
+    /* Search among childs */
+    for (Node *child : _v->childs) {
+      /* This Step already been expanded */
+      if (step == child->step) {
+        is_in_child_list = true;
+        break;
+      }
+    }
+
+    /* This Step hasn't been expanded yet */
+    if (!is_in_child_list) unchoosed_steps.push_back(step);
+  }
+
+  /* Choose a step from unchoosed next steps */
+  int idx = rand() % unchoosed_steps.size();
+
+  /* Do the step */
+  Coord new_step           = unchoosed_steps.at(idx);
+  bool  is_new_color_black = (_v->is_black) ? false : true;
+  State new_state          = _v->state;
+  GameUtil::do_set_and_flip(new_state, is_new_color_black, new_step);
+
+  /* Create & Push new child into child list */
+  UCT::Node *new_child =
+      new UCT::Node(_v, new_state, new_step, is_new_color_black);
+  _v->childs.push_back(new_child);
+
+  /* Return this new child */
+  return new_child;
+}
+
+/*
+  Return Best Child
+  We use UCB and Weight here to choose best on
+*/
+UCT::Node *UCT::Tree::best_child(UCT::Node *_v, const double _c) {
+  double     max  = std::numeric_limits<double>::max();
+  UCT::Node *best = NULL;
 }

@@ -11,6 +11,11 @@ Board::Board() { this->clear(); }
 bool Board::operator==(const Board &rhs) { return (this->board == rhs.board); }
 
 /*
+    Operator =
+*/
+void Board::operator=(const Board &rhs) { this->board = rhs.board; }
+
+/*
     Get Status of the Cell of the Board
 */
 Status Board::get(int _x, int _y) {
