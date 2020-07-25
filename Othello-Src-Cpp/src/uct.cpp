@@ -50,6 +50,8 @@ void UCT::Node::update_valid_next_steps() {
 */
 UCT::Tree::Tree() {
   this->root = NULL;
+  this->weight_black.reset();
+  this->weight_white.reset();
   srand(time(NULL));
 }
 
@@ -167,9 +169,41 @@ UCT::Node *UCT::Tree::expand(UCT::Node *_v) {
 
 /*
   Return Best Child
-  We use UCB and Weight here to choose best on
+  We use UCB and Weight here to choose best one
+  Calculate the Score of each Child, and Pick Best one
 */
 UCT::Node *UCT::Tree::best_child(UCT::Node *_v, const double _c) {
+  /* max value for picking best child */
   double     max  = std::numeric_limits<double>::max();
   UCT::Node *best = NULL;
+
+  /* Calculate the Score of each Child, and Pick Best one */
+  for (UCT::Node *child : _v->childs) {
+    /* Calculate UCB */
+    double ucb =
+        1.0 * child->q / child->n + _c * sqrt(1.0 * log(_v->n) / child->n);
+
+    /* Weight */
+    if (child->step != NO_ACTION) {
+      /* Multiply Weight to ucb according to coordinate of step */
+      if (this->root->is_black) {
+        // Opponent's Color is Black
+        // We are the White one
+        ucb *= this->weight_white.get(child->step);
+      } else {
+        // Opponent's Color is White
+        // We are the Black one
+        ucb *= this->weight_black.get(child->step);
+      }
+    }
+
+    /* Compare */
+    if (ucb > max) {
+      max  = ucb;
+      best = child;
+    }
+  }
+
+  /* Return Best One */
+  return best;
 }

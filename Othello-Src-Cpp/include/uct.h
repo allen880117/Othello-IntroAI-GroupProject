@@ -1,8 +1,10 @@
 #pragma once
 #include <board.h>
 #include <coord.h>
-#include <vector>
+#include <weight.h>
+
 #include <cmath>
+#include <vector>
 
 #define COEFF (sqrt(2))
 
@@ -35,7 +37,9 @@ class Node {
 /* Class: Tree of UCT */
 class Tree {
  private:
-  Node *root;
+  Node * root;
+  Weight weight_white;
+  Weight weight_black;
 
  public:
   Tree();
