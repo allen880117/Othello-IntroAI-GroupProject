@@ -7,6 +7,7 @@
 #include <vector>
 
 #define COEFF (sqrt(2))
+#define err(_str) fprintf(stderr, _str);
 
 namespace UCT {
 /* Type Define */
@@ -17,7 +18,7 @@ class Node {
   friend class Tree;
 
  private:
-  Node *              parent;
+  Node *parent;
   std::vector<Node *> childs;
 
   State              state;             // Board of This Node

@@ -1,5 +1,6 @@
 #include <display.h>
 #include <othello.h>
+#include <unistd.h>
 /*
     Before Main Process
 */
@@ -15,11 +16,12 @@ void Othello::do_pre_process() {
 */
 void Othello::do_main_process() {
   bool is_black = true;
-  while (!GameUtil::is_end(this->board)) {
-    /* Print Board */
-    Display::clear();
-    Display::print(this->board);
 
+  /* Print Board */
+  Display::clear();
+  Display::print(this->board);
+
+  while (!GameUtil::is_end(this->board)) {
     /* There exists Valid Step for this Color */
     std::vector<Coord> valid_steps =
         GameUtil::get_valid_steps(this->board, is_black);
@@ -39,6 +41,10 @@ void Othello::do_main_process() {
     /* Reverse Color */
     is_black = (is_black) ? false : true;
   }
+
+  /* Print Board */
+  Display::clear();
+  Display::print(this->board);
 }
 
 /*
@@ -48,10 +54,13 @@ void Othello::do_post_process() {
   int result = GameUtil::get_result(this->board);
   if (result == 0) {
     // DRAW
+    printf("DRAW\n");
   } else if (result > 0) {
     // Black WIN
+    printf("BLACK WIN, %d\n", result);
   } else {
     // White WIN
+    printf("WHITE WIN, %d\n", -result);
   }
 }
 

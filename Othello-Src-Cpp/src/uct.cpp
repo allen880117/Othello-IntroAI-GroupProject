@@ -3,7 +3,6 @@
 
 #include <cstdlib>
 #include <ctime>
-#include <limits>
 
 /*
   Constructor of UCT::Node
@@ -98,12 +97,11 @@ Coord UCT::Tree::uct_search(State _s0, bool _is_black) {
   }
 
   /* Get Best Child and Replace the Root */
-  Node *best         = this->best_child(this->root, 0);
-  this->root         = best;
+  this->root = this->best_child(this->root, 0);
   this->root->parent = NULL;
 
   /* Return */
-  return best->step;
+  return this->root->step;
 }
 
 /*
@@ -117,7 +115,7 @@ UCT::Node *UCT::Tree::tree_policy(UCT::Node *_v) {
       return this->expand(_v);
     } else {
       /* Pick Best Child */
-      return this->best_child(_v, COEFF);
+      _v = this->best_child(_v, COEFF);
     }
   }
   return _v;
@@ -174,7 +172,7 @@ UCT::Node *UCT::Tree::expand(UCT::Node *_v) {
 */
 UCT::Node *UCT::Tree::best_child(UCT::Node *_v, const double _c) {
   /* max value for picking best child */
-  double     max  = std::numeric_limits<double>::max();
+  double     max  = -10e9;
   UCT::Node *best = NULL;
 
   /* Calculate the Score of each Child, and Pick Best one */
@@ -195,7 +193,7 @@ UCT::Node *UCT::Tree::best_child(UCT::Node *_v, const double _c) {
         // We are the Black one
         ucb *= this->weight_black.get(child->step);
       }
-    }
+    } 
 
     /* Compare */
     if (ucb > max) {
