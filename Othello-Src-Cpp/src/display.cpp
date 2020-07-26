@@ -12,7 +12,9 @@ void Display::clear() { printf(CLEAR); }
 */
 template <>
 void Display::print(Board &_board) {
-  printf("  0 1 2 3 4 5 6 7\n");
+  printf("  ");
+  for (int i=0; i< BOARD_W; i++) printf("%d ", i);
+  printf("\n");
 
   for (int i = 0; i < BOARD_H; i++) {
     printf(NORMAL " ");
