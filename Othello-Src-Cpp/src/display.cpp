@@ -10,6 +10,7 @@ void Display::clear() { printf(CLEAR); }
 /*
     Print the board
 */
+template <>
 void Display::print(Board &_board) {
   printf("  0 1 2 3 4 5 6 7\n");
 

@@ -1,10 +1,6 @@
-#include "orthello.h"
-using namespace std;
+#include <othello.h>
 
-int main(int argc, char **argv) {
-  Orthello ort;
-  ort.start_game();
-  printf("%s\n", GameControl::get_result(ort.board) == BLACK_WIN ? "BLACK WIN"
-                                                                 : "WHITE WIN");
-  return GameControl::get_result((ort.board));
+int main(int argc, char **argv){
+  Othello othello;
+  othello.start_game();
 }

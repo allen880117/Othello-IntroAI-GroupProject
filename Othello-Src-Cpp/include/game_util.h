@@ -2,6 +2,7 @@
 #include <board.h>
 #include <coord.h>
 #include <vector>
+
 /* Game Utility */
 namespace GameUtil {
 bool               is_end(Board &_board);

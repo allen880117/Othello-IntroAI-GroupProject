@@ -1,6 +1,6 @@
 #include <display.h>
 #include <othello.h>
-/* 
+/*
     Before Main Process
 */
 void Othello::do_pre_process() {
@@ -10,7 +10,7 @@ void Othello::do_pre_process() {
   this->do_welcome_event();
 }
 
-/* 
+/*
     The Main Process
 */
 void Othello::do_main_process() {
@@ -21,7 +21,9 @@ void Othello::do_main_process() {
     Display::print(this->board);
 
     /* There exists Valid Step for this Color */
-    if (GameUtil::is_exist_valid_step(this->board, is_black)) {
+    std::vector<Coord> valid_steps =
+        GameUtil::get_valid_steps(this->board, is_black);
+    if (!valid_steps.empty()) {
       /* Ask Player */
       Coord step = NO_ACTION;
       if (is_black) {
@@ -43,14 +45,14 @@ void Othello::do_main_process() {
     After Main Process
 */
 void Othello::do_post_process() {
-    int result = GameUtil::get_result(this->board);
-    if(result == 0){
-        // DRAW
-    } else if (result > 0){
-        // Black WIN
-    } else {
-        // White WIN
-    }
+  int result = GameUtil::get_result(this->board);
+  if (result == 0) {
+    // DRAW
+  } else if (result > 0) {
+    // Black WIN
+  } else {
+    // White WIN
+  }
 }
 
 /*

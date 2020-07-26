@@ -1,3 +1,4 @@
+#include <game_util.h>
 #include <player.h>
 
 /*
@@ -32,8 +33,18 @@ void Player::set_cpu(bool _is_cpu) { this->is_cpu = _is_cpu; }
 Coord Player::get_step(Board &_board) {
   Coord step = NO_ACTION;
   if (this->is_cpu) {
-      // Do UCT Search
+    // Do UCT Search
+    // Color is the Last Piece's Color
+    step = uct.uct_search(_board, !this->is_black);
   } else {
-      // Ask User to Input
+    // Ask User to Input
+    while (true) {
+      int r, c;
+      printf("Please input valid step in foramt < r , c >: ");
+      scanf("%d %d", &r, &c);
+      step = Coord(r, c);
+      if (GameUtil::is_valid_step(_board, this->is_black, step)) break;
+    }
   }
+  return step;
 }

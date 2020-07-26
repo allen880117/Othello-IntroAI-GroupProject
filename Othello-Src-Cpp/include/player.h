@@ -1,12 +1,15 @@
 #pragma once
 #include <board.h>
 #include <coord.h>
+#include <uct.h>
 
 /* Class Player */
 class Player {
  private:
   bool is_cpu;
   bool is_black;
+  
+  UCT::Tree uct;
 
  public:
   Player();
