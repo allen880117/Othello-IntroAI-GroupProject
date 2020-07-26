@@ -207,3 +207,49 @@ UCT::Node *UCT::Tree::best_child(UCT::Node *_v, const double _c) {
   /* Return Best One */
   return best;
 }
+
+/*
+  The default policy of the game (Simulation)
+  (_is_black is the Last Pieces's Color)
+*/
+int UCT::Tree::default_policy(State _s, bool _is_black) {
+  /* Reverse color for next player */
+  bool is_black = (_is_black) ? false : true;
+
+  /* Random Play */
+  while (!GameUtil::is_end(_s)) {
+    /* Get all possible step */
+    std::vector<Coord> possible_steps = GameUtil::get_valid_steps(_s, is_black);
+
+    /* Set Piece */
+    Coord step = NO_ACTION;
+    if (possible_steps.size() != 0) {
+      /* There exist valid step for this color */
+      step = possible_steps.at(rand() % possible_steps.size());
+      GameUtil::do_set_and_flip(_s, is_black, step);
+    }
+
+    /* Reverse Color */
+    is_black = (is_black) ? false : true;
+  }
+
+  /* Return Final Result */
+  return GameUtil::get_result(_s);
+}
+
+/*
+  Back Propagation
+*/
+void UCT::Tree::backup(UCT::Node *_v, int _delta) {
+  while (_v != NULL) {
+    /* Touch Counter add 1 */
+    _v->n++;
+    /* Win Counter add 1 */
+    if ((_v->is_black && _delta > 0) || (!_v->is_black && _delta < 0)) {
+      _v->q++;
+    }
+
+    /* Change to Parent */
+    _v = _v->parent;
+  }
+}

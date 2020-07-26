@@ -30,6 +30,8 @@ class Node {
 
  public:
   Node(Node *, State &, Coord, bool);
+
+ private:
   bool is_expandable();
   void update_valid_next_steps();
 };
@@ -44,10 +46,13 @@ class Tree {
  public:
   Tree();
   Coord uct_search(State, bool);
+
+ private:
   Node *tree_policy(Node *);
   Node *expand(Node *);
   Node *best_child(Node *, const double);
   int   default_policy(State, bool);
   void  backup(Node *, int);
 };
+
 };  // namespace UCT
