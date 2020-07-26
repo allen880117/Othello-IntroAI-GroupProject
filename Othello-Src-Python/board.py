@@ -48,12 +48,12 @@ class Board():
         self.board[BOARD_H-1][0] = Status.ILLEGAL
         self.board[BOARD_H-1][BOARD_W-1] = Status.ILLEGAL
 
-    def get(self, _x, _y):
+    def get(self, _x, _y) -> Status:
         if(self.check_boundary(_x, _y)):
-            return self.board[_x][_y] 
+            return self.board[_x][_y]
         else:
             return Status.ILLEGAL
-            
+
     def set(self, _x, _y, _value):
         if(self.check_boundary(_x, _y)):
             if(type(_value) == int):
@@ -61,5 +61,5 @@ class Board():
             elif(type(_value) == type(Status.UNOCCUPIED)):
                 self.board[_x][_y] = _value
 
-    def check_boundary(self, _x, _y):
+    def check_boundary(self, _x, _y) -> bool:
         return (0 <= _x) and (_x < BOARD_H) and (0 <= _y) and (_y < BOARD_W)

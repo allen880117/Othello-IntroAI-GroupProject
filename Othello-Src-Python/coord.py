@@ -27,4 +27,3 @@ class Coord():
 NO_ACTION = Coord(-1, -1)
 direction = [Coord(-1, -1), Coord(-1, 0), Coord(-1, 1), Coord(0, -1),
              Coord(0, 1),   Coord(1, -1), Coord(1, 0),  Coord(1, 1)]
-             
