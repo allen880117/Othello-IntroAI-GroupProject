@@ -22,7 +22,12 @@ class Coord():
 
     def __add__(self, rhs):
         return Coord(self.x+rhs.x, self.y+rhs.y)
+    
+    def __eq__(self, rhs):
+        return (self.x == rhs.x and self.y == rhs.y)
 
+    def __ne__(self, rhs):
+        return not (self.x == rhs.x and self.y == rhs.y)
 
 NO_ACTION = Coord(-1, -1)
 direction = [Coord(-1, -1), Coord(-1, 0), Coord(-1, 1), Coord(0, -1),

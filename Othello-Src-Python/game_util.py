@@ -70,3 +70,74 @@ def is_valid_step(_board: board.Board, _is_black: bool, _step: coord.Coord) -> b
 
     # Fail
     return False
+
+
+def do_set_and_flip(_board: board.Board, _is_black: bool, _step: coord.Coord) -> bool:
+    # Abort
+    if _step == coord.NO_ACTION:
+        return False
+
+    # You can't set piece on not UNOCCUPIED
+    if _board.get(_step.x, _step.y) != board.Status.UNOCCUPIED:
+        return False
+
+    # Set the Piece
+    _board.set(_step.x, _step.y, board.Status.BLACK if
+               _is_black else board.Status.WHITE)
+
+    """ 
+        [B]    [W]     [...][B]
+        [start][middle][...][end]
+    """
+    middle_color = board.Status.WHITE if (_is_black) else board.Status.BLACK
+    end_color = board.Status.BLACK if (_is_black) else board.Status.WHITE
+
+    # Eight Dierection
+    ret_status = False
+    for dir in coord.direction:
+        # Reset
+        cur_r = _step.x
+        cur_c = _step.y
+        state = 0
+
+        # Check
+        while(_board.check_boundary(cur_r, cur_c)):
+            # Step Out
+            cur_r += dir.x
+            cur_c += dir.y
+
+            if(state == 0 and _board.get(cur_r, cur_c) == middle_color):
+                # [B][W]
+                state = 1
+            elif(state == 1 and _board.get(cur_r, cur_c) == middle_color):
+                # [B][W][...]
+                state = 1
+            elif(state == 1 and _board.get(cur_r, cur_c) == end_color):
+                # [B][W][...][B]
+                ret_status = True
+
+                # Do Flip
+                while(coord.Coord(cur_r, cur_c) != _step):
+                    _board.set(cur_r, cur_c, end_color)
+                    cur_r -= dir.x
+                    cur_c -= dir.y
+
+                # Change Direction
+                break
+
+            else:
+                # Other Fail Situation
+                break
+
+    if(ret_status):
+        return True
+    else:
+        # Inside Safe Area
+        if (_step.x >= 1 and _step.x <= board.BOARD_H-2 and
+            _step.y >= 1 and _step.y <= board.BOARD_W-2):
+            return True
+        else:
+            # Illegal Movemoent, Recover the baord
+            _board.set(_step.x, _step.y, board.Status.UNOCCUPIED)
+            return False
+    
