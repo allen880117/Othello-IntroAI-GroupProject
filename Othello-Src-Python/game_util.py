@@ -134,10 +134,34 @@ def do_set_and_flip(_board: board.Board, _is_black: bool, _step: coord.Coord) ->
     else:
         # Inside Safe Area
         if (_step.x >= 1 and _step.x <= board.BOARD_H-2 and
-            _step.y >= 1 and _step.y <= board.BOARD_W-2):
+                _step.y >= 1 and _step.y <= board.BOARD_W-2):
             return True
         else:
             # Illegal Movemoent, Recover the baord
             _board.set(_step.x, _step.y, board.Status.UNOCCUPIED)
             return False
-    
+
+
+def get_valid_steps(_board: board.Board, _is_black: bool) -> list:
+    """ Return all the possible step for this color (at this state) """
+    ret = []
+    for r in range(board.BOARD_H):
+        for c in range(board.BOARD_W):
+            if(is_valid_step(_board, _is_black, coord.Coord(r, c))):
+                ret.append(coord.Coord(r, c))
+
+    return ret
+
+
+def get_result(_board: board.Board) -> int:
+    """ Return the difference ([#B] - [#W]) """
+    black_counter = 0
+    white_counter = 0
+    for r in range(board.BOARD_H):
+        for c in range(board.BOARD_W):
+            if(_board.get(r, c) == board.Status.BLACK):
+                black_counter += 1
+            elif(_board.get(r, c) == board.Status.BLACK):
+                white_counter += 1
+
+    return black_counter-white_counter
