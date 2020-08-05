@@ -17,11 +17,11 @@ void Othello::do_pre_process() {
 void Othello::do_main_process() {
   bool is_black = true;
 
-  while (!GameUtil::is_end(this->board)) {
-    /* Print Board */
-    Display::clear();
-    Display::print(this->board);
+  /* Print Board */
+  Display::clear();
+  Display::print(this->board);
 
+  while (!GameUtil::is_end(this->board)) {
     /* There exists Valid Step for this Color */
     std::vector<Coord> valid_steps =
         GameUtil::get_valid_steps(this->board, is_black);
@@ -40,6 +40,10 @@ void Othello::do_main_process() {
 
     /* Reverse Color */
     is_black = !(is_black);
+
+    /* Print Board */
+    Display::clear();
+    Display::print(this->board);
   }
 }
 

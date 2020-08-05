@@ -161,7 +161,7 @@ def get_result(_board: board.Board) -> int:
         for c in range(board.BOARD_W):
             if(_board.get(r, c) == board.Status.BLACK):
                 black_counter += 1
-            elif(_board.get(r, c) == board.Status.BLACK):
+            elif(_board.get(r, c) == board.Status.WHITE):
                 white_counter += 1
 
     return black_counter-white_counter

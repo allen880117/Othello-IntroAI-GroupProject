@@ -24,10 +24,11 @@ class Othello():
     def do_main_process(self) -> None:
         is_black = True
 
+        # Print Board
+        display.clear()
+        display.display(self.board)
+
         while not game_util.is_end(self.board):
-            # Print Board
-            display.clear()
-            display.display(self.board)
 
             # There exists valid step for this color
             valid_steps = game_util.get_valid_steps(self.board, is_black)
@@ -44,6 +45,10 @@ class Othello():
 
             # Reverse Color
             is_black = not is_black
+
+            # Print Board
+            display.clear()
+            display.display(self.board)
 
     def do_post_process(self) -> None:
         result = game_util.get_result(self.board)

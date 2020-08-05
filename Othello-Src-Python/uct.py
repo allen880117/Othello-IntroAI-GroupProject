@@ -80,7 +80,7 @@ class Tree():
 
         start = time.time()
         end = time.time()
-        while end-start < 4.75:
+        while end-start < 4.75/10:
             V1_idx = self.tree_policy(self.root_idx)
             delta = self.default_policy(
                 self.tree[V1_idx].state, self.tree[V1_idx].is_black)
