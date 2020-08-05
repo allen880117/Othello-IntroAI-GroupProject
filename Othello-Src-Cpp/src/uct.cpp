@@ -35,7 +35,7 @@ bool UCT::Node::is_expandable() {
 */
 void UCT::Node::update_valid_next_steps() {
   /* Decide next steps's color, the inverse of current state's color */
-  bool is_next_black = (this->is_black) ? false : true;
+  bool is_next_black = !(this->is_black);
   this->valid_next_steps =
       GameUtil::get_valid_steps(this->state, is_next_black);
 
@@ -97,7 +97,7 @@ Coord UCT::Tree::uct_search(State _s0, bool _is_black) {
   }
 
   /* Get Best Child and Replace the Root */
-  this->root = this->best_child(this->root, 0);
+  this->root         = this->best_child(this->root, 0);
   this->root->parent = NULL;
 
   /* Return */
@@ -152,7 +152,7 @@ UCT::Node *UCT::Tree::expand(UCT::Node *_v) {
 
   /* Do the step */
   Coord new_step           = unchoosed_steps.at(idx);
-  bool  is_new_color_black = (_v->is_black) ? false : true;
+  bool  is_new_color_black = !(_v->is_black);
   State new_state          = _v->state;
   GameUtil::do_set_and_flip(new_state, is_new_color_black, new_step);
 
@@ -193,7 +193,7 @@ UCT::Node *UCT::Tree::best_child(UCT::Node *_v, const double _c) {
         // We are the Black one
         ucb *= this->weight_black.get(child->step);
       }
-    } 
+    }
 
     /* Compare */
     if (ucb > max) {
@@ -212,7 +212,7 @@ UCT::Node *UCT::Tree::best_child(UCT::Node *_v, const double _c) {
 */
 int UCT::Tree::default_policy(State _s, bool _is_black) {
   /* Reverse color for next player */
-  bool is_black = (_is_black) ? false : true;
+  bool is_black = !(_is_black);
 
   /* Random Play */
   while (!GameUtil::is_end(_s)) {
@@ -228,7 +228,7 @@ int UCT::Tree::default_policy(State _s, bool _is_black) {
     }
 
     /* Reverse Color */
-    is_black = (is_black) ? false : true;
+    is_black = !(is_black);
   }
 
   /* Return Final Result */

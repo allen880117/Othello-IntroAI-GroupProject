@@ -40,7 +40,7 @@ Coord Player::get_step(Board &_board) {
     // Ask User to Input
     while (true) {
       int r, c;
-      printf("Please input valid step in foramt < r , c >: ");
+      printf("Please input valid step in format < r , c >: ");
       scanf("%d %d", &r, &c);
       step = Coord(r, c);
       if (GameUtil::is_valid_step(_board, this->is_black, step)) break;

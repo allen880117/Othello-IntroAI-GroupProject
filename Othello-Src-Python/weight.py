@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import board as board
+import coord
 
 
 class Weight():
@@ -31,5 +32,10 @@ class Weight():
     def set(self, _r: int, _c: int, _value: float) -> None:
         self.weight[_r][_c] = _value
 
-    def get(self, _r: int, _c: int) -> float:
-        return self.weight[_r][_c]
+    def get(self, *args) -> float:
+        if(len(args) == 1 and type(args[0]) == coord.Coord):
+            return self.weight[args[0].x][args[0].y]
+        elif(len(args) == 2):
+            return self.weight[args[0]][args[1]]
+        else:
+            raise BaseException("Type Error for Get Weight")
